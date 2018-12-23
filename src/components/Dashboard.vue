@@ -18,8 +18,20 @@
           </div>
           <button
             @click="restart"
-            class="restart">
+            class="restart"
+          >
             Restart
+          </button>
+        </div>
+        <div
+          v-if="hasNotPlayableCells"
+          class="center"
+        >
+          <button
+            @click="pass"
+            class="pass"
+          >
+            Pass turn
           </button>
         </div>
         <div>
@@ -43,6 +55,7 @@ export default {
       'blackPlayerScore',
       'whitePlayerScore',
       'winner',
+      'playableCells',
     ]),
     isBlackPlayerTurn() {
       return this.$store.state.currentPlayer === BLACK;
@@ -53,10 +66,16 @@ export default {
     winnerContent() {
       return `${this.winner === BLACK ? '<<< ' : ''}WINNER${this.winner === WHITE ? ' >>>' : ''}`;
     },
+    hasNotPlayableCells() {
+      return this.playableCells.length === 0;
+    },
   },
   methods: {
     restart() {
       this.$store.commit('restart');
+    },
+    pass() {
+      this.$store.commit('changePlayer');
     },
   },
 };

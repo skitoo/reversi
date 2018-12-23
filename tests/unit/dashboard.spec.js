@@ -6,12 +6,20 @@ describe('components::Dashboard', () => {
   let wrapper;
   let store;
   let restartMock;
+  let playableCellsMock;
+  let passMock;
 
   beforeEach(() => {
     restartMock = jest.fn();
+    playableCellsMock = jest.fn();
+    playableCellsMock.mockReturnValue([]);
+
     store = createStore({
       mutations: {
         restart: restartMock,
+      },
+      getters: {
+        playableCells: playableCellsMock,
       },
     });
     wrapper = mount(Dashboard, {
@@ -85,6 +93,44 @@ describe('components::Dashboard', () => {
       const restartButton = wrapper.find('button.restart');
       restartButton.trigger('click');
       expect(restartMock).toBeCalled();
+    });
+  });
+  describe('pass buttons', () => {
+    it('should display "pass button" if has not playable cells', () => {
+      expect(wrapper.contains('button.pass')).toBeTruthy();
+    });
+    it('should not display "pass button" if has playable cells', () => {
+      playableCellsMock = jest.fn();
+      playableCellsMock.mockReturnValue([1, 2]);
+
+      store = createStore({
+        getters: {
+          playableCells: playableCellsMock,
+        },
+      });
+      wrapper = mount(Dashboard, {
+        store,
+      });
+      expect(wrapper.contains('button.pass')).toBeFalsy();
+    });
+    it('should commit "changePlayer" mutation when player click on "Pass turn" button', () => {
+      passMock = jest.fn();
+      playableCellsMock = jest.fn();
+      playableCellsMock.mockReturnValue([]);
+      store = createStore({
+        getters: {
+          playableCells: playableCellsMock,
+        },
+        mutations: {
+          changePlayer: passMock,
+        },
+      });
+      wrapper = mount(Dashboard, {
+        store,
+      });
+      const passButton = wrapper.find('button.pass');
+      passButton.trigger('click');
+      expect(passMock).toBeCalled();
     });
   });
 });
