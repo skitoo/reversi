@@ -12,7 +12,7 @@ Vue.use(Vuex);
 
 
 export const state = {
-  board: INITIAL_BOARD,
+  board: INITIAL_BOARD.slice(0),
   currentPlayer: BLACK,
 };
 

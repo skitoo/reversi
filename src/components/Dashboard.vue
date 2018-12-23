@@ -9,11 +9,18 @@
           </h3>
           <div class="score-value">{{blackPlayerScore}}</div>
         </div>
-        <div
-          v-if="winner"
-          class="winner"
-        >
-          {{ winnerContent }}
+        <div class="center">
+          <div
+            v-if="winner"
+            class="winner"
+          >
+            {{ winnerContent }}
+          </div>
+          <button
+            @click="restart"
+            class="restart">
+            Restart
+          </button>
         </div>
         <div>
           <h3 :class="{ currentPlayer: isWhitePlayerTurn }">
@@ -45,6 +52,11 @@ export default {
     },
     winnerContent() {
       return `${this.winner === BLACK ? '<<< ' : ''}WINNER${this.winner === WHITE ? ' >>>' : ''}`;
+    },
+  },
+  methods: {
+    restart() {
+      this.$store.commit('restart');
     },
   },
 };
@@ -92,8 +104,11 @@ h3 {
   100% { color: #f00; }
 }
 
-.winner {
+.center {
   padding-top: 30px;
+}
+
+.winner {
   font-weight: bold;
   animation: blinkText 1s linear infinite;
 }

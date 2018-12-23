@@ -5,9 +5,15 @@ import Dashboard from '@/components/Dashboard.vue';
 describe('components::Dashboard', () => {
   let wrapper;
   let store;
+  let restartMock;
 
   beforeEach(() => {
-    store = createStore();
+    restartMock = jest.fn();
+    store = createStore({
+      mutations: {
+        restart: restartMock,
+      },
+    });
     wrapper = mount(Dashboard, {
       store,
     });
@@ -72,6 +78,13 @@ describe('components::Dashboard', () => {
     });
     it('should not render winner if no player has win', () => {
       expect(wrapper.contains('.winner')).toBeFalsy();
+    });
+  });
+  describe('restart button', () => {
+    it('should commit "restart" mutation when player click on "Restart" button', () => {
+      const restartButton = wrapper.find('button.restart');
+      restartButton.trigger('click');
+      expect(restartMock).toBeCalled();
     });
   });
 });

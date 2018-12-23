@@ -3,6 +3,7 @@ import {
   BLACK,
   WIDTH,
   HEIGHT,
+  INITIAL_BOARD,
 } from '@/store/commons';
 import { createStore } from '@/store';
 
@@ -45,6 +46,14 @@ describe('store::mutations', () => {
       expect(() => {
         store.commit('changePiece', { position: -2, color: BLACK });
       }).toThrow();
+    });
+  });
+
+  describe('restart', () => {
+    it('should restart game', () => {
+      store.commit('changePiece', { position: 0, color: BLACK });
+      store.commit('restart');
+      expect(store.state.board).toEqual(INITIAL_BOARD);
     });
   });
 });

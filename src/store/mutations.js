@@ -5,6 +5,7 @@ import {
   BLACK,
   WIDTH,
   HEIGHT,
+  INITIAL_BOARD,
 } from '@/store/commons';
 
 export default {
@@ -16,5 +17,8 @@ export default {
       throw new Error(`${position} position is invalid`);
     }
     Vue.set(state.board, position, color);
+  },
+  restart(state) {
+    state.board = INITIAL_BOARD.slice(0);
   },
 };
