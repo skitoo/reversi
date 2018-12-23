@@ -1,6 +1,6 @@
 import { shallowMount } from '@vue/test-utils';
 import Piece from '@/components/Piece.vue';
-import { WHITE, BLACK } from '@/store';
+import { WHITE, BLACK } from '@/store/commons';
 
 describe('Piece.vue', () => {
   it('renders piece with white color', () => {

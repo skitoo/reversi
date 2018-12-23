@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import { WHITE, BLACK } from '@/store';
+import { WHITE, BLACK } from '@/store/commons';
 
 export default {
   props: {
