@@ -1,4 +1,5 @@
 /* eslint-disable no-param-reassign */
+import Vue from 'vue';
 import {
   WHITE,
   BLACK,
@@ -14,6 +15,6 @@ export default {
     if (position > WIDTH * HEIGHT || position < 0) {
       throw new Error(`${position} position is invalid`);
     }
-    state.board[position] = color;
+    Vue.set(state.board, position, color);
   },
 };

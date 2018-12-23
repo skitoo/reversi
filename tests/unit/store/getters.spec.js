@@ -1,4 +1,5 @@
 import { createStore } from '@/store';
+import { WHITE } from '@/store/commons';
 
 describe('store::getters', () => {
   let store;
@@ -36,6 +37,24 @@ describe('store::getters', () => {
       const result = store.getters.reversibleCells(61);
       result.sort();
       expect(result).toEqual([52, 61]);
+    });
+  });
+
+  describe('score', () => {
+    describe('blackPlayerScore', () => {
+      it('should returns the number of points of black player', () => {
+        store.state.board = board;
+        expect(store.getters.blackPlayerScore).toEqual(4);
+      });
+    });
+
+    describe('whitePlayerScore', () => {
+      it('should returns the number of points of white player', () => {
+        store.state.board = board;
+        expect(store.getters.whitePlayerScore).toEqual(5);
+        store.commit('changePiece', { position: 0, color: WHITE });
+        expect(store.getters.whitePlayerScore).toEqual(6);
+      });
     });
   });
 });

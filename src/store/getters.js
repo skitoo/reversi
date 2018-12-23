@@ -42,4 +42,10 @@ export default {
       .map(([x, y]) => cellIndex(x, y))
       .concat([position]);
   },
+  blackPlayerScore(state) {
+    return state.board.filter(cell => cell === BLACK).length;
+  },
+  whitePlayerScore(state) {
+    return state.board.filter(cell => cell === WHITE).length;
+  },
 };
