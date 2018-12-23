@@ -23,4 +23,8 @@ describe('Board.vue', () => {
     expect(wrapper.findAll('.white').length).toEqual(2);
     expect(wrapper.findAll('.black').length).toEqual(2);
   });
+
+  it('should render playable cells', () => {
+    expect(wrapper.findAll('.playable').length).toEqual(4);
+  });
 });

@@ -4,6 +4,7 @@
       <div
         v-for="cell in cells"
         class="cell"
+        :class="{ playable: cell.isPlayable }"
         :key="cell.key"
       >
         <piece
@@ -16,7 +17,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 import Piece from '@/components/Piece.vue';
 
 export default {
@@ -27,8 +28,16 @@ export default {
     ...mapState([
       'board',
     ]),
+    ...mapGetters([
+      'playableCells',
+    ]),
     cells() {
-      return this.board.map((cell, index) => ({ key: `cell-${index}`, value: cell }));
+      const { playableCells } = this;
+      return this.board.map((cell, index) => ({
+        key: `cell-${index}`,
+        value: cell,
+        isPlayable: playableCells.indexOf(index) > -1,
+      }));
     },
   },
 };
@@ -60,5 +69,9 @@ export default {
   height: 100%;
   box-shadow: inset 1px 1px 0 #94C160, inset -1px -1px 0 #477413;
   display: flex;
+}
+.playable {
+  background: #C4E79A;
+  cursor: pointer;
 }
 </style>
