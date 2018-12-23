@@ -1,5 +1,11 @@
 # reversi
 
+![Screenshot](/screenshot.png)
+
+## Demo
+
+https://skitoo.github.io/reversi/
+
 ## Project setup
 ```
 yarn install
