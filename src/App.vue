@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <h1>Reversi</h1>
     <board />
   </div>
 </template>
@@ -21,5 +22,8 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
+}
+h1 {
+  text-align: center;
 }
 </style>
