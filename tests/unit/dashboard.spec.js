@@ -41,4 +41,37 @@ describe('components::Dashboard', () => {
       expect(h3s.at(1).classes()).toContain('currentPlayer');
     });
   });
+  describe('winner', () => {
+    it('should render "<<< WINNER" if black player has win', () => {
+      const boardWithWin = [
+        2, 2, 2, 2, 2, 2, 2, 2,
+        1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1,
+      ];
+      store.state.board = boardWithWin;
+      expect(wrapper.find('.winner').text()).toEqual('<<< WINNER');
+    });
+    it('should render "WINNER >>>" if black player has win', () => {
+      const boardWithWin = [
+        1, 1, 1, 1, 1, 1, 1, 1,
+        2, 2, 2, 2, 2, 2, 2, 2,
+        2, 2, 2, 2, 2, 2, 2, 2,
+        2, 2, 2, 2, 2, 2, 2, 2,
+        2, 2, 2, 2, 2, 2, 2, 2,
+        2, 2, 2, 2, 2, 2, 2, 2,
+        2, 2, 2, 2, 2, 2, 2, 2,
+        2, 2, 2, 2, 2, 2, 2, 2,
+      ];
+      store.state.board = boardWithWin;
+      expect(wrapper.find('.winner').text()).toEqual('WINNER >>>');
+    });
+    it('should not render winner if no player has win', () => {
+      expect(wrapper.contains('.winner')).toBeFalsy();
+    });
+  });
 });

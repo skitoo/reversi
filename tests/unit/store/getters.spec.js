@@ -1,5 +1,5 @@
 import { createStore } from '@/store';
-import { WHITE } from '@/store/commons';
+import { WHITE, BLACK } from '@/store/commons';
 
 describe('store::getters', () => {
   let store;
@@ -70,6 +70,71 @@ describe('store::getters', () => {
         store.commit('changePiece', { position: 0, color: WHITE });
         expect(store.getters.whitePlayerScore).toEqual(6);
       });
+    });
+  });
+
+  describe('winner', () => {
+    it('should return null if has not winner', () => {
+      expect(store.getters.winner).toBeNull();
+    });
+    it('should return BLACK if only black pieces are present on board', () => {
+      const boardWithWin = [
+        0, 0, 1, 1, 0, 0, 0, 0,
+        0, 0, 1, 1, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0,
+      ];
+      store.state.board = boardWithWin;
+      expect(store.getters.winner).toEqual(BLACK);
+    });
+
+    it('should return WHITE if only white pieces are present on board', () => {
+      const boardWithWin = [
+        0, 0, 2, 2, 0, 0, 0, 0,
+        0, 0, 2, 2, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0,
+      ];
+      store.state.board = boardWithWin;
+      expect(store.getters.winner).toEqual(WHITE);
+    });
+
+    it('should return BLACK if black has best score and board is full', () => {
+      const boardWithWin = [
+        2, 2, 2, 2, 2, 2, 2, 2,
+        1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1,
+      ];
+      store.state.board = boardWithWin;
+      expect(store.getters.winner).toEqual(BLACK);
+    });
+
+    it('should return WHITE if white has best score and board is full', () => {
+      const boardWithWin = [
+        1, 1, 1, 1, 1, 1, 1, 1,
+        2, 2, 2, 2, 2, 2, 2, 2,
+        2, 2, 2, 2, 2, 2, 2, 2,
+        2, 2, 2, 2, 2, 2, 2, 2,
+        2, 2, 2, 2, 2, 2, 2, 2,
+        2, 2, 2, 2, 2, 2, 2, 2,
+        2, 2, 2, 2, 2, 2, 2, 2,
+        2, 2, 2, 2, 2, 2, 2, 2,
+      ];
+      store.state.board = boardWithWin;
+      expect(store.getters.winner).toEqual(WHITE);
     });
   });
 });

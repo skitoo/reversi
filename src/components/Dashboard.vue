@@ -9,6 +9,12 @@
           </h3>
           <div class="score-value">{{blackPlayerScore}}</div>
         </div>
+        <div
+          v-if="winner"
+          class="winner"
+        >
+          {{ winnerContent }}
+        </div>
         <div>
           <h3 :class="{ currentPlayer: isWhitePlayerTurn }">
             White
@@ -29,12 +35,16 @@ export default {
     ...mapGetters([
       'blackPlayerScore',
       'whitePlayerScore',
+      'winner',
     ]),
     isBlackPlayerTurn() {
       return this.$store.state.currentPlayer === BLACK;
     },
     isWhitePlayerTurn() {
       return this.$store.state.currentPlayer === WHITE;
+    },
+    winnerContent() {
+      return `${this.winner === BLACK ? '<<< ' : ''}WINNER${this.winner === WHITE ? ' >>>' : ''}`;
     },
   },
 };
@@ -75,6 +85,17 @@ h3 {
 
 .score-value {
   font-size: 1.5em;
+}
+
+@keyframes blinkText {
+  0% { color: #000; }
+  100% { color: #f00; }
+}
+
+.winner {
+  padding-top: 30px;
+  font-weight: bold;
+  animation: blinkText 1s linear infinite;
 }
 
 </style>
