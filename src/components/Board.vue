@@ -6,6 +6,7 @@
         class="cell"
         :class="{ playable: cell.isPlayable }"
         :key="cell.key"
+        @click="play(cell)"
       >
         <piece
           v-if="cell.value !== 0"
@@ -36,8 +37,16 @@ export default {
       return this.board.map((cell, index) => ({
         key: `cell-${index}`,
         value: cell,
+        position: index,
         isPlayable: playableCells.indexOf(index) > -1,
       }));
+    },
+  },
+  methods: {
+    play(cell) {
+      if (cell.isPlayable) {
+        this.$store.dispatch('play', cell.position);
+      }
     },
   },
 };

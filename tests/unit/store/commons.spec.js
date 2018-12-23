@@ -2,6 +2,7 @@ import {
   coordinates,
   cellIndex,
   playableCell,
+  reversibleCellsByDirection,
   WHITE,
   BLACK,
 } from '@/store/commons';
@@ -24,7 +25,7 @@ describe('store::commons', () => {
   });
 
   describe('playableCell', () => {
-    it('should return playable cell for a given direction', () => {
+    it('should returns playable cell for a given direction', () => {
       const board = [
         0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0,
@@ -39,6 +40,25 @@ describe('store::commons', () => {
       expect(playableCell(board, [0, 0], [1, 0], WHITE, BLACK)).toBeFalsy();
       expect(playableCell(board, [5, 3], [-1, 0], WHITE, BLACK)).toBeTruthy();
       expect(playableCell(board, [5, 4], [-1, 0], WHITE, BLACK)).toBeFalsy();
+    });
+  });
+
+  describe('reversibleCellsByDirection', () => {
+    const board = [
+      0, 0, 0, 0, 0, 0, 0, 0,
+      0, 0, 0, 0, 0, 0, 0, 0,
+      0, 0, 0, 0, 0, 0, 0, 0,
+      0, 0, 0, 1, 2, 0, 0, 0,
+      0, 0, 2, 2, 1, 0, 0, 0,
+      0, 0, 0, 0, 0, 0, 0, 0,
+      0, 0, 0, 0, 0, 0, 0, 0,
+      0, 0, 0, 0, 0, 0, 0, 0,
+    ];
+    it('should returns reversible cells for a given direction', () => {
+      expect(reversibleCellsByDirection(board, [1, 4], [1, 0], BLACK)).toEqual([
+        [2, 4],
+        [3, 4],
+      ]);
     });
   });
 });

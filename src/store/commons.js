@@ -52,3 +52,26 @@ export const playableCell = (board, [x, y], [xDir, yDir], opponent, player) => {
   }
   return prevIsOpponent && currentCell === player;
 };
+
+export const reversibleCellsByDirection = (board, [x, y], [xDir, yDir], player) => {
+  let curX = x + xDir;
+  let curY = y + yDir;
+  let result = [];
+  let playerFound = false;
+  let blankFound = false;
+  let currentCell;
+  while (curX > 0 && curX < WIDTH && curY > 0 && curY < HEIGHT && !playerFound && !blankFound) {
+    currentCell = board[cellIndex(curX, curY)];
+    playerFound = currentCell === player;
+    blankFound = currentCell === BLANK;
+    if (!playerFound && !blankFound) {
+      result.push([curX, curY]);
+    }
+    curX += xDir;
+    curY += yDir;
+  }
+  if (blankFound) {
+    result = [];
+  }
+  return result;
+};

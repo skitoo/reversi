@@ -7,6 +7,7 @@ import {
   coordinates,
   cellIndex,
   playableCell,
+  reversibleCellsByDirection,
 } from '@/store/commons';
 
 export default {
@@ -31,5 +32,14 @@ export default {
       }
     });
     return cells;
+  },
+  reversibleCells: state => (position) => {
+    const { board, currentPlayer } = state;
+    const coord = coordinates(position);
+    return DIRECTIONS
+      .map(direction => reversibleCellsByDirection(board, coord, direction, currentPlayer))
+      .reduce((acc, cur) => acc.concat(cur), [])
+      .map(([x, y]) => cellIndex(x, y))
+      .concat([position]);
   },
 };
