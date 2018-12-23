@@ -30,8 +30,19 @@ export const actions = {
 };
 
 
-export default new Vuex.Store({
-  state,
-  mutations,
-  actions,
-});
+export const createStore = (options = { actions: {}, mutations: {}, state: {} }) => (
+  new Vuex.Store({
+    state: {
+      ...state,
+      ...options.state,
+    },
+    mutations: {
+      ...mutations,
+      ...options.mutations,
+    },
+    actions: {
+      ...actions,
+      ...options.actions,
+    },
+  })
+);
