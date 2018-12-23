@@ -14,6 +14,17 @@ describe('store::getters', () => {
     0, 0, 0, 0, 0, 0, 0, 0,
   ];
 
+  const board2 = [
+    0, 0, 2, 1, 0, 0, 0, 0,
+    0, 0, 1, 2, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0,
+  ];
+
   beforeEach(() => {
     store = createStore();
   });
@@ -22,6 +33,10 @@ describe('store::getters', () => {
     it('should returns playable cells with black player', () => {
       const result = store.getters.playableCells;
       expect(result).toEqual([20, 29, 34, 43]);
+    });
+    it('should returns playable cell with black player with other case', () => {
+      store.state.board = board2;
+      expect(store.getters.playableCells).toEqual([1, 12, 19]);
     });
   });
 

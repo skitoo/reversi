@@ -41,7 +41,7 @@ export const playableCell = (board, [x, y], [xDir, yDir], opponent, player) => {
   let hasOpponent = true;
   let prevIsOpponent = false;
   let currentCell;
-  while (curX > 0 && curX < WIDTH && curY > 0 && curY < HEIGHT && hasOpponent) {
+  while (curX >= 0 && curX < WIDTH && curY >= 0 && curY < HEIGHT && hasOpponent) {
     curX += xDir;
     curY += yDir;
     currentCell = board[cellIndex(curX, curY)];
