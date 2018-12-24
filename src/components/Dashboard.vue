@@ -85,6 +85,8 @@ export default {
 .dashboard {
   width: 50vw;
   margin: auto;
+  min-width: 300px;
+  max-width: 700px;
 }
 
 h2 {
