@@ -113,6 +113,19 @@ describe('components::Dashboard', () => {
       });
       expect(wrapper.contains('button.pass')).toBeFalsy();
     });
+    it('should not display "pass button" if there is a winner', () => {
+      store.state.board = [
+        1, 1, 1, 1, 1, 1, 1, 1,
+        2, 2, 2, 2, 2, 2, 2, 2,
+        2, 2, 2, 2, 2, 2, 2, 2,
+        2, 2, 2, 2, 2, 2, 2, 2,
+        2, 2, 2, 2, 2, 2, 2, 2,
+        2, 2, 2, 2, 2, 2, 2, 2,
+        2, 2, 2, 2, 2, 2, 2, 2,
+        2, 2, 2, 2, 2, 2, 2, 2,
+      ];
+      expect(wrapper.contains('button.pass')).toBeFalsy();
+    });
     it('should commit "changePlayer" mutation when player click on "Pass turn" button', () => {
       passMock = jest.fn();
       playableCellsMock = jest.fn();

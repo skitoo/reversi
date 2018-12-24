@@ -24,7 +24,7 @@
           </button>
         </div>
         <div
-          v-if="hasNotPlayableCells"
+          v-if="displayPassButton"
           class="center"
         >
           <button
@@ -66,8 +66,8 @@ export default {
     winnerContent() {
       return `${this.winner === BLACK ? '<<< ' : ''}WINNER${this.winner === WHITE ? ' >>>' : ''}`;
     },
-    hasNotPlayableCells() {
-      return this.playableCells.length === 0;
+    displayPassButton() {
+      return this.playableCells.length === 0 && !this.winner;
     },
   },
   methods: {
